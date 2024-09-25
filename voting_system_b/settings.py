@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-nw2j5(iw@2#hf#@dbc@!pfri&=7q(!+q6o4o2*g4bgm$tge(&a
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
@@ -64,6 +64,21 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'voting_system_b.urls'
+# settings.py
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django_redis.cache.RedisCache',
+        'LOCATION': 'redis://127.0.0.1:6379/1',  # Redis server URL
+        'OPTIONS': {
+            'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+        }
+    }
+}
+
+# Optional: Set cache timeout
+CACHE_TTL = 60 * 15  # 15 minutes
+
 
 TEMPLATES = [
     {

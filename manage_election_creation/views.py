@@ -7,6 +7,8 @@ from login_apis.models import users
 from rest_framework.decorators import api_view
 from .models import create_election
 from rest_framework import generics
+from django.views.decorators.cache import cache_page
+from voting_system_b.settings import CACHE_TTL
 # from .models import create_elections,candiates
 from .serializer import Create_elections_serializer
 from .models import create_election as ce
@@ -26,9 +28,11 @@ def create_unique_id(request):
 #         queryset=create_election.objects.all()
 #         serializer_class=Create_elections_serializer
 @api_view(["POST","PUT","GET"])
+@cache_page(CACHE_TTL)
 def create_election(request):
     if request.method=="GET":
         elections=ce.objects.all()
+        print("get_called")
        
         serializer=Create_elections_serializer(elections,many=True)
 

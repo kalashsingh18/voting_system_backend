@@ -1,5 +1,6 @@
 from rest_framework_simplejwt.tokens import RefreshToken,UntypedToken,AccessToken
 from django.http import HttpResponseRedirect
+from login_apis.models import users
 def login_check(get_response):
     def middleware(request):
         paths=["/manage_election/create","/manage_election/select_election","/manage_election/extract"]

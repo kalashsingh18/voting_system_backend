@@ -65,6 +65,7 @@ class CustomTokenObtainPairView(TokenObtainPairView):
 @api_view(["POST"])
 def login(request):
     check_name = request.data.get("user_name")
+    gmail_user=request.data.get("user_name")
     check_email = request.data.get("email")   
     plain_password = request.data.get("password") 
 
@@ -83,7 +84,8 @@ def login(request):
             refresh = RefreshToken.for_user(user_instance)
             with open('templates\email.html','r') as email:
                       data=email.read()
-                      data.replace("user_name",check_name)
+                      print(gmail_user)
+                      data=data.replace("user_name",gmail_user)
                       print(data)
             send_custom_email("Congratulations! You've Successfully Logged In!",message=data,recipient_list=[check_email])
 
